@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.demo.dao.AdminDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.example.demo.entity.AdminEntity" id="adminMap">
+        <result property="id" column="id"/>
+        <result property="login" column="login"/>
+        <result property="password" column="password"/>
+        <result property="lastTime" column="last_time"/>
+        <result property="lastIp" column="last_ip"/>
+        <result property="name" column="name"/>
+    </resultMap>
+
+    <select id="queryObject" resultMap="adminMap">
+        select * from admin where id = #{value}
+    </select>
+
+	<select id="queryList" resultMap="adminMap">
+		select * from admin
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+			<otherwise>
+                order by id desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
+ 	<select id="queryTotal" resultType="int">
+		select count(*) from admin 
+	</select>
+	 
+	<insert id="save" parameterType="com.example.demo.entity.AdminEntity">
+		insert into admin
+		(
+			`id`, 
+			`login`, 
+			`password`, 
+			`last_time`, 
+			`last_ip`, 
+			`name`
+		)
+		values
+		(
+			#{id}, 
+			#{login}, 
+			#{password}, 
+			#{lastTime}, 
+			#{lastIp}, 
+			#{name}
+		)
+	</insert>
+
+    <insert id="saveSelective" parameterType="com.example.demo.entity.AdminEntity">
+        insert into admin
+        (
+									<if test="id != null">
+                `id`,                 </if>
+												<if test="login != null">
+                `login`,                 </if>
+												<if test="password != null">
+                `password`,                 </if>
+												<if test="lastTime != null">
+                `last_time`,                 </if>
+												<if test="lastIp != null">
+                `last_ip`,                 </if>
+												<if test="name != null">
+                `name`                </if>
+					        )
+        values
+        (
+									<if test="id != null">
+                    #{id}, 				</if>
+												<if test="login != null">
+                    #{login}, 				</if>
+												<if test="password != null">
+                    #{password}, 				</if>
+												<if test="lastTime != null">
+                    #{lastTime}, 				</if>
+												<if test="lastIp != null">
+                    #{lastIp}, 				</if>
+												<if test="name != null">
+                    #{name}				</if>
+					        )
+    </insert>
+
+
+
+	<update id="updateSelective" parameterType="com.example.demo.entity.AdminEntity">
+		update admin 
+		<set>
+			<if test="login != null">`login` = #{login}, </if>
+			<if test="password != null">`password` = #{password}, </if>
+			<if test="lastTime != null">`last_time` = #{lastTime}, </if>
+			<if test="lastIp != null">`last_ip` = #{lastIp}, </if>
+			<if test="name != null">`name` = #{name}</if>
+		</set>
+		where id = #{id}
+	</update>
+
+    <update id="update" parameterType="com.example.demo.entity.AdminEntity">
+        update admin
+        <set>
+														                    `login` = #{login}, 											                    `password` = #{password}, 											                    `last_time` = #{lastTime}, 											                    `last_ip` = #{lastIp}, 											                    `name` = #{name}							        </set>
+        where id = #{id}
+    </update>
+	
+	<delete id="delete">
+		delete from admin where id = #{value}
+	</delete>
+	
+	<delete id="deleteBatch">
+		delete from admin where id in 
+		<foreach item="id" collection="array" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+	<select id="login" resultMap="adminMap">
+		SELECT * from admin where login = #{login} and password = #{password}
+	</select>
+
+</mapper>

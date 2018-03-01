@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title></title>
+<meta charset="UTF-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+<link rel="stylesheet" href="../../css/bootstrap.min.css">
+<link rel="stylesheet" href="../../css/font-awesome.min.css">
+<link rel="stylesheet" href="../../plugins/jqgrid/ui.jqgrid-bootstrap.css">
+<link rel="stylesheet" href="../../plugins/ztree/css/metroStyle/metroStyle.css">
+<link rel="stylesheet" href="../../css/main.css">
+<script src="../../libs/jquery.min.js"></script>
+<script src="../../plugins/layer/layer.js"></script>
+<script src="../../libs/bootstrap.min.js"></script>
+<script src="../../libs/vue.min.js"></script>
+<script src="../../plugins/jqgrid/grid.locale-cn.js"></script>
+<script src="../../plugins/jqgrid/jquery.jqGrid.min.js"></script>
+<script src="../../plugins/ztree/jquery.ztree.all.min.js"></script>
+<script src="../../js/common.js"></script>
+</head>
+<body>
+<div id="rrapp" v-cloak>
+	<div v-show="showList">
+		<div class="grid-btn">
+			<a  class="btn btn-primary" @click="add"><i class="fa fa-plus"></i>&nbsp;新增</a>
+			<a  class="btn btn-primary" @click="update"><i class="fa fa-pencil-square-o"></i>&nbsp;修改</a>
+			<a  class="btn btn-primary" @click="del"><i class="fa fa-trash-o"></i>&nbsp;删除</a>
+		</div>
+	    <table id="jqGrid"></table>
+	    <div id="jqGridPager"></div>
+    </div>
+    
+    <div v-show="!showList" class="panel panel-default">
+		<div class="panel-heading">{{title}}</div>
+		<form class="form-horizontal">
+											<div class="form-group">
+			   	<div class="col-sm-2 control-label">学员id</div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="teacherRequirement.studentId" placeholder="学员id"/>
+			    </div>
+			</div>
+									<div class="form-group">
+			   	<div class="col-sm-2 control-label">联系人</div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="teacherRequirement.concat" placeholder="联系人"/>
+			    </div>
+			</div>
+									<div class="form-group">
+			   	<div class="col-sm-2 control-label">联系人性别(0:男,1:女)</div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="teacherRequirement.sex" placeholder="联系人性别(0:男,1:女)"/>
+			    </div>
+			</div>
+									<div class="form-group">
+			   	<div class="col-sm-2 control-label">学员年龄</div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="teacherRequirement.age" placeholder="学员年龄"/>
+			    </div>
+			</div>
+									<div class="form-group">
+			   	<div class="col-sm-2 control-label">学员年级</div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="teacherRequirement.grade" placeholder="学员年级"/>
+			    </div>
+			</div>
+									<div class="form-group">
+			   	<div class="col-sm-2 control-label">联系电话</div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="teacherRequirement.phone" placeholder="联系电话"/>
+			    </div>
+			</div>
+									<div class="form-group">
+			   	<div class="col-sm-2 control-label">电子邮件</div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="teacherRequirement.email" placeholder="电子邮件"/>
+			    </div>
+			</div>
+									<div class="form-group">
+			   	<div class="col-sm-2 control-label">所在区域</div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="teacherRequirement.area" placeholder="所在区域"/>
+			    </div>
+			</div>
+									<div class="form-group">
+			   	<div class="col-sm-2 control-label">详细地址</div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="teacherRequirement.address" placeholder="详细地址"/>
+			    </div>
+			</div>
+									<div class="form-group">
+			   	<div class="col-sm-2 control-label">辅导科目</div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="teacherRequirement.subject" placeholder="辅导科目"/>
+			    </div>
+			</div>
+									<div class="form-group">
+			   	<div class="col-sm-2 control-label">学员状态详细描述</div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="teacherRequirement.studentDescription" placeholder="学员状态详细描述"/>
+			    </div>
+			</div>
+									<div class="form-group">
+			   	<div class="col-sm-2 control-label">学员状态(0:零基础,1:补差型,2:提高型,3:拔尖型)</div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="teacherRequirement.studentLevel" placeholder="学员状态(0:零基础,1:补差型,2:提高型,3:拔尖型)"/>
+			    </div>
+			</div>
+									<div class="form-group">
+			   	<div class="col-sm-2 control-label">授课时间</div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="teacherRequirement.teachingTime" placeholder="授课时间"/>
+			    </div>
+			</div>
+									<div class="form-group">
+			   	<div class="col-sm-2 control-label">需求人数</div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="teacherRequirement.requireCount" placeholder="需求人数"/>
+			    </div>
+			</div>
+									<div class="form-group">
+			   	<div class="col-sm-2 control-label">性别要求(0:男，1：女,2:无要求)</div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="teacherRequirement.requireSex" placeholder="性别要求(0:男，1：女,2:无要求)"/>
+			    </div>
+			</div>
+									<div class="form-group">
+			   	<div class="col-sm-2 control-label">身份要求（0：在职教员，1：在职教师，2：无）</div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="teacherRequirement.identity" placeholder="身份要求（0：在职教员，1：在职教师，2：无）"/>
+			    </div>
+			</div>
+									<div class="form-group">
+			   	<div class="col-sm-2 control-label">资格要求</div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="teacherRequirement.requirement" placeholder="资格要求"/>
+			    </div>
+			</div>
+									<div class="form-group">
+			   	<div class="col-sm-2 control-label">薪酬要求</div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="teacherRequirement.payment" placeholder="薪酬要求"/>
+			    </div>
+			</div>
+									<div class="form-group">
+			   	<div class="col-sm-2 control-label">辅导方式()</div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="teacherRequirement.teachingType" placeholder="辅导方式()"/>
+			    </div>
+			</div>
+									<div class="form-group">
+			   	<div class="col-sm-2 control-label">乘车补贴（0：无，1：有，2：部分，3：协商）</div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="teacherRequirement.ridingAllowance" placeholder="乘车补贴（0：无，1：有，2：部分，3：协商）"/>
+			    </div>
+			</div>
+									<div class="form-group">
+			   	<div class="col-sm-2 control-label"></div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="teacherRequirement.releaseTime" placeholder=""/>
+			    </div>
+			</div>
+									<div class="form-group">
+			   	<div class="col-sm-2 control-label">发布状态（0：发布中，1：已关闭)</div>
+			   	<div class="col-sm-10">
+			      <input type="text" class="form-control" v-model="teacherRequirement.releaseStatus" placeholder="发布状态（0：发布中，1：已关闭)"/>
+			    </div>
+			</div>
+							<div class="form-group">
+				<div class="col-sm-2 control-label"></div> 
+				<input type="button" class="btn btn-primary" @click="saveOrUpdate" value="确定"/>
+				&nbsp;&nbsp;<input type="button" class="btn btn-warning" @click="reload" value="返回"/>
+			</div>
+		</form>
+	</div>
+</div>
+
+<script src="../../js/modules/uas/teacherrequirement.js"></script>
+</body>
+</html>

@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.demo.dao.TeacherRequirementDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.example.demo.entity.TeacherRequirementEntity" id="teacherRequirementMap">
+        <result property="id" column="id"/>
+        <result property="studentId" column="student_id"/>
+        <result property="concat" column="concat"/>
+        <result property="sex" column="sex"/>
+        <result property="age" column="age"/>
+        <result property="grade" column="grade"/>
+        <result property="phone" column="phone"/>
+        <result property="email" column="email"/>
+        <result property="area" column="area"/>
+        <result property="address" column="address"/>
+        <result property="subject" column="subject"/>
+        <result property="studentDescription" column="student_description"/>
+        <result property="studentLevel" column="student_level"/>
+        <result property="teachingTime" column="teaching_time"/>
+        <result property="requireCount" column="require_count"/>
+        <result property="requireSex" column="require_sex"/>
+        <result property="identity" column="identity"/>
+        <result property="requirement" column="requirement"/>
+        <result property="payment" column="payment"/>
+        <result property="teachingType" column="teaching_type"/>
+        <result property="ridingAllowance" column="riding_allowance"/>
+        <result property="releaseTime" column="release_time"/>
+        <result property="releaseStatus" column="release_status"/>
+    </resultMap>
+
+    <select id="queryObject" resultMap="teacherRequirementMap">
+        select * from teacher_requirement where id = #{value}
+    </select>
+
+	<select id="queryList" resultMap="teacherRequirementMap">
+		select * from teacher_requirement
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+			<otherwise>
+                order by id desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
+ 	<select id="queryTotal" resultType="int">
+		select count(*) from teacher_requirement 
+	</select>
+	 
+	<insert id="save" parameterType="com.example.demo.entity.TeacherRequirementEntity" useGeneratedKeys="true" keyProperty="id">
+		insert into teacher_requirement
+		(
+			`student_id`, 
+			`concat`, 
+			`sex`, 
+			`age`, 
+			`grade`, 
+			`phone`, 
+			`email`, 
+			`area`, 
+			`address`, 
+			`subject`, 
+			`student_description`, 
+			`student_level`, 
+			`teaching_time`, 
+			`require_count`, 
+			`require_sex`, 
+			`identity`, 
+			`requirement`, 
+			`payment`, 
+			`teaching_type`, 
+			`riding_allowance`, 
+			`release_time`, 
+			`release_status`
+		)
+		values
+		(
+			#{studentId}, 
+			#{concat}, 
+			#{sex}, 
+			#{age}, 
+			#{grade}, 
+			#{phone}, 
+			#{email}, 
+			#{area}, 
+			#{address}, 
+			#{subject}, 
+			#{studentDescription}, 
+			#{studentLevel}, 
+			#{teachingTime}, 
+			#{requireCount}, 
+			#{requireSex}, 
+			#{identity}, 
+			#{requirement}, 
+			#{payment}, 
+			#{teachingType}, 
+			#{ridingAllowance}, 
+			#{releaseTime}, 
+			#{releaseStatus}
+		)
+	</insert>
+
+    <insert id="saveSelective" parameterType="com.example.demo.entity.TeacherRequirementEntity" useGeneratedKeys="true" keyProperty="id">
+        insert into teacher_requirement
+        (
+														<if test="studentId != null">
+                `student_id`,                 </if>
+												<if test="concat != null">
+                `concat`,                 </if>
+												<if test="sex != null">
+                `sex`,                 </if>
+												<if test="age != null">
+                `age`,                 </if>
+												<if test="grade != null">
+                `grade`,                 </if>
+												<if test="phone != null">
+                `phone`,                 </if>
+												<if test="email != null">
+                `email`,                 </if>
+												<if test="area != null">
+                `area`,                 </if>
+												<if test="address != null">
+                `address`,                 </if>
+												<if test="subject != null">
+                `subject`,                 </if>
+												<if test="studentDescription != null">
+                `student_description`,                 </if>
+												<if test="studentLevel != null">
+                `student_level`,                 </if>
+												<if test="teachingTime != null">
+                `teaching_time`,                 </if>
+												<if test="requireCount != null">
+                `require_count`,                 </if>
+												<if test="requireSex != null">
+                `require_sex`,                 </if>
+												<if test="identity != null">
+                `identity`,                 </if>
+												<if test="requirement != null">
+                `requirement`,                 </if>
+												<if test="payment != null">
+                `payment`,                 </if>
+												<if test="teachingType != null">
+                `teaching_type`,                 </if>
+												<if test="ridingAllowance != null">
+                `riding_allowance`,                 </if>
+												<if test="releaseTime != null">
+                `release_time`,                 </if>
+												<if test="releaseStatus != null">
+                `release_status`                </if>
+					        )
+        values
+        (
+														<if test="studentId != null">
+                    #{studentId}, 				</if>
+												<if test="concat != null">
+                    #{concat}, 				</if>
+												<if test="sex != null">
+                    #{sex}, 				</if>
+												<if test="age != null">
+                    #{age}, 				</if>
+												<if test="grade != null">
+                    #{grade}, 				</if>
+												<if test="phone != null">
+                    #{phone}, 				</if>
+												<if test="email != null">
+                    #{email}, 				</if>
+												<if test="area != null">
+                    #{area}, 				</if>
+												<if test="address != null">
+                    #{address}, 				</if>
+												<if test="subject != null">
+                    #{subject}, 				</if>
+												<if test="studentDescription != null">
+                    #{studentDescription}, 				</if>
+												<if test="studentLevel != null">
+                    #{studentLevel}, 				</if>
+												<if test="teachingTime != null">
+                    #{teachingTime}, 				</if>
+												<if test="requireCount != null">
+                    #{requireCount}, 				</if>
+												<if test="requireSex != null">
+                    #{requireSex}, 				</if>
+												<if test="identity != null">
+                    #{identity}, 				</if>
+												<if test="requirement != null">
+                    #{requirement}, 				</if>
+												<if test="payment != null">
+                    #{payment}, 				</if>
+												<if test="teachingType != null">
+                    #{teachingType}, 				</if>
+												<if test="ridingAllowance != null">
+                    #{ridingAllowance}, 				</if>
+												<if test="releaseTime != null">
+                    #{releaseTime}, 				</if>
+												<if test="releaseStatus != null">
+                    #{releaseStatus}				</if>
+					        )
+    </insert>
+
+
+
+	<update id="updateSelective" parameterType="com.example.demo.entity.TeacherRequirementEntity">
+		update teacher_requirement 
+		<set>
+			<if test="studentId != null">`student_id` = #{studentId}, </if>
+			<if test="concat != null">`concat` = #{concat}, </if>
+			<if test="sex != null">`sex` = #{sex}, </if>
+			<if test="age != null">`age` = #{age}, </if>
+			<if test="grade != null">`grade` = #{grade}, </if>
+			<if test="phone != null">`phone` = #{phone}, </if>
+			<if test="email != null">`email` = #{email}, </if>
+			<if test="area != null">`area` = #{area}, </if>
+			<if test="address != null">`address` = #{address}, </if>
+			<if test="subject != null">`subject` = #{subject}, </if>
+			<if test="studentDescription != null">`student_description` = #{studentDescription}, </if>
+			<if test="studentLevel != null">`student_level` = #{studentLevel}, </if>
+			<if test="teachingTime != null">`teaching_time` = #{teachingTime}, </if>
+			<if test="requireCount != null">`require_count` = #{requireCount}, </if>
+			<if test="requireSex != null">`require_sex` = #{requireSex}, </if>
+			<if test="identity != null">`identity` = #{identity}, </if>
+			<if test="requirement != null">`requirement` = #{requirement}, </if>
+			<if test="payment != null">`payment` = #{payment}, </if>
+			<if test="teachingType != null">`teaching_type` = #{teachingType}, </if>
+			<if test="ridingAllowance != null">`riding_allowance` = #{ridingAllowance}, </if>
+			<if test="releaseTime != null">`release_time` = #{releaseTime}, </if>
+			<if test="releaseStatus != null">`release_status` = #{releaseStatus}</if>
+		</set>
+		where id = #{id}
+	</update>
+
+    <update id="update" parameterType="com.example.demo.entity.TeacherRequirementEntity">
+        update teacher_requirement
+        <set>
+														                    `student_id` = #{studentId}, 											                    `concat` = #{concat}, 											                    `sex` = #{sex}, 											                    `age` = #{age}, 											                    `grade` = #{grade}, 											                    `phone` = #{phone}, 											                    `email` = #{email}, 											                    `area` = #{area}, 											                    `address` = #{address}, 											                    `subject` = #{subject}, 											                    `student_description` = #{studentDescription}, 											                    `student_level` = #{studentLevel}, 											                    `teaching_time` = #{teachingTime}, 											                    `require_count` = #{requireCount}, 											                    `require_sex` = #{requireSex}, 											                    `identity` = #{identity}, 											                    `requirement` = #{requirement}, 											                    `payment` = #{payment}, 											                    `teaching_type` = #{teachingType}, 											                    `riding_allowance` = #{ridingAllowance}, 											                    `release_time` = #{releaseTime}, 											                    `release_status` = #{releaseStatus}							        </set>
+        where id = #{id}
+    </update>
+	
+	<delete id="delete">
+		delete from teacher_requirement where id = #{value}
+	</delete>
+	
+	<delete id="deleteBatch">
+		delete from teacher_requirement where id in 
+		<foreach item="id" collection="array" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+
+</mapper>

@@ -9,7 +9,7 @@ import java.util.Date;
  * 
  * @author chenshun
  * @email sunlightcs@gmail.com
- * @date 2018-02-27 11:20:25
+ * @date 2018-03-01 15:58:10
  */
 public class TeacherEntity implements Serializable {
 	private static final long serialVersionUID = 1L;
@@ -58,7 +58,7 @@ public class TeacherEntity implements Serializable {
 	private Date registerTime;
 	//上次登录ip
 	private String lastIp;
-	//是否可用(0:可用，1：禁用)
+	//是否可用（0：未验证邮箱，1：禁用，2：可用）
 	private Integer isabled;
 	//职业(0:在校大学生，1：教师)
 	private Integer identity;
@@ -68,6 +68,10 @@ public class TeacherEntity implements Serializable {
 	private String currentStatus;
 	//
 	private String wechat;
+	//
+	private Integer loginTimes;
+	//(是否已验证身份，0：未验证身份信息，1：未验证教师信息，2：已验证)
+	private Integer isverify;
 
 	/**
 	 * 设置：
@@ -334,13 +338,13 @@ public class TeacherEntity implements Serializable {
 		return lastIp;
 	}
 	/**
-	 * 设置：是否可用(0:可用，1：禁用)
+	 * 设置：是否可用（0：未验证邮箱，1：禁用，2：可用）
 	 */
 	public void setIsabled(Integer isabled) {
 		this.isabled = isabled;
 	}
 	/**
-	 * 获取：是否可用(0:可用，1：禁用)
+	 * 获取：是否可用（0：未验证邮箱，1：禁用，2：可用）
 	 */
 	public Integer getIsabled() {
 		return isabled;
@@ -392,5 +396,29 @@ public class TeacherEntity implements Serializable {
 	 */
 	public String getWechat() {
 		return wechat;
+	}
+	/**
+	 * 设置：
+	 */
+	public void setLoginTimes(Integer loginTimes) {
+		this.loginTimes = loginTimes;
+	}
+	/**
+	 * 获取：
+	 */
+	public Integer getLoginTimes() {
+		return loginTimes;
+	}
+	/**
+	 * 设置：(是否已验证身份，0：未验证身份信息，1：未验证教师信息，2：已验证)
+	 */
+	public void setIsverify(Integer isverify) {
+		this.isverify = isverify;
+	}
+	/**
+	 * 获取：(是否已验证身份，0：未验证身份信息，1：未验证教师信息，2：已验证)
+	 */
+	public Integer getIsverify() {
+		return isverify;
 	}
 }

@@ -32,6 +32,7 @@
         <result property="qq" column="qq"/>
         <result property="currentStatus" column="current_status"/>
         <result property="wechat" column="wechat"/>
+		<result property="isverify" column="isverify"/>
     </resultMap>
 
     <select id="queryObject" resultMap="teacherMap">
@@ -70,185 +71,197 @@
  	<select id="queryTotal" resultType="int">
 		select count(*) from teacher 
 	</select>
-	 
+
 	<insert id="save" parameterType="com.example.demo.entity.TeacherEntity" useGeneratedKeys="true" keyProperty="id">
 		insert into teacher
 		(
-			`nickname`, 
-			`name`, 
-			`password`, 
-			`sex`, 
-			`birthday`, 
-			`education`, 
-			`major`, 
-			`university`, 
-			`phone`, 
-			`email`, 
-			`description`, 
-			`address`, 
-			`teaching_time`, 
-			`teaching_area`, 
-			`teaching_subject`, 
-			`foreign_level`, 
-			`experience`, 
-			`avatar`, 
-			`last_time`, 
-			`register_time`, 
-			`last_ip`, 
-			`isabled`, 
-			`identity`, 
-			`qq`, 
-			`current_status`, 
-			`wechat`
+		`nickname`,
+		`name`,
+		`password`,
+		`sex`,
+		`birthday`,
+		`education`,
+		`major`,
+		`university`,
+		`phone`,
+		`email`,
+		`description`,
+		`address`,
+		`teaching_time`,
+		`teaching_area`,
+		`teaching_subject`,
+		`foreign_level`,
+		`experience`,
+		`avatar`,
+		`last_time`,
+		`register_time`,
+		`last_ip`,
+		`isabled`,
+		`identity`,
+		`qq`,
+		`current_status`,
+		`wechat`,
+		`login_times`,
+		`isverify`
 		)
 		values
 		(
-			#{nickname}, 
-			#{name}, 
-			#{password}, 
-			#{sex}, 
-			#{birthday}, 
-			#{education}, 
-			#{major}, 
-			#{university}, 
-			#{phone}, 
-			#{email}, 
-			#{description}, 
-			#{address}, 
-			#{teachingTime}, 
-			#{teachingArea}, 
-			#{teachingSubject}, 
-			#{foreignLevel}, 
-			#{experience}, 
-			#{avatar}, 
-			#{lastTime}, 
-			#{registerTime}, 
-			#{lastIp}, 
-			#{isabled}, 
-			#{identity}, 
-			#{qq}, 
-			#{currentStatus}, 
-			#{wechat}
+		#{nickname},
+		#{name},
+		#{password},
+		#{sex},
+		#{birthday},
+		#{education},
+		#{major},
+		#{university},
+		#{phone},
+		#{email},
+		#{description},
+		#{address},
+		#{teachingTime},
+		#{teachingArea},
+		#{teachingSubject},
+		#{foreignLevel},
+		#{experience},
+		#{avatar},
+		#{lastTime},
+		#{registerTime},
+		#{lastIp},
+		#{isabled},
+		#{identity},
+		#{qq},
+		#{currentStatus},
+		#{wechat},
+		#{loginTimes},
+		#{isverify}
 		)
 	</insert>
 
-    <insert id="saveSelective" parameterType="com.example.demo.entity.TeacherEntity" useGeneratedKeys="true" keyProperty="id">
-        insert into teacher
-        (
-														<if test="nickname != null">
-                `nickname`,                 </if>
-												<if test="name != null">
-                `name`,                 </if>
-												<if test="password != null">
-                `password`,                 </if>
-												<if test="sex != null">
-                `sex`,                 </if>
-												<if test="birthday != null">
-                `birthday`,                 </if>
-												<if test="education != null">
-                `education`,                 </if>
-												<if test="major != null">
-                `major`,                 </if>
-												<if test="university != null">
-                `university`,                 </if>
-												<if test="phone != null">
-                `phone`,                 </if>
-												<if test="email != null">
-                `email`,                 </if>
-												<if test="description != null">
-                `description`,                 </if>
-												<if test="address != null">
-                `address`,                 </if>
-												<if test="teachingTime != null">
-                `teaching_time`,                 </if>
-												<if test="teachingArea != null">
-                `teaching_area`,                 </if>
-												<if test="teachingSubject != null">
-                `teaching_subject`,                 </if>
-												<if test="foreignLevel != null">
-                `foreign_level`,                 </if>
-												<if test="experience != null">
-                `experience`,                 </if>
-												<if test="avatar != null">
-                `avatar`,                 </if>
-												<if test="lastTime != null">
-                `last_time`,                 </if>
-												<if test="registerTime != null">
-                `register_time`,                 </if>
-												<if test="lastIp != null">
-                `last_ip`,                 </if>
-												<if test="isabled != null">
-                `isabled`,                 </if>
-												<if test="identity != null">
-                `identity`,                 </if>
-												<if test="qq != null">
-                `qq`,                 </if>
-												<if test="currentStatus != null">
-                `current_status`,                 </if>
-												<if test="wechat != null">
-                `wechat`                </if>
-					        )
-        values
-        (
-														<if test="nickname != null">
-                    #{nickname}, 				</if>
-												<if test="name != null">
-                    #{name}, 				</if>
-												<if test="password != null">
-                    #{password}, 				</if>
-												<if test="sex != null">
-                    #{sex}, 				</if>
-												<if test="birthday != null">
-                    #{birthday}, 				</if>
-												<if test="education != null">
-                    #{education}, 				</if>
-												<if test="major != null">
-                    #{major}, 				</if>
-												<if test="university != null">
-                    #{university}, 				</if>
-												<if test="phone != null">
-                    #{phone}, 				</if>
-												<if test="email != null">
-                    #{email}, 				</if>
-												<if test="description != null">
-                    #{description}, 				</if>
-												<if test="address != null">
-                    #{address}, 				</if>
-												<if test="teachingTime != null">
-                    #{teachingTime}, 				</if>
-												<if test="teachingArea != null">
-                    #{teachingArea}, 				</if>
-												<if test="teachingSubject != null">
-                    #{teachingSubject}, 				</if>
-												<if test="foreignLevel != null">
-                    #{foreignLevel}, 				</if>
-												<if test="experience != null">
-                    #{experience}, 				</if>
-												<if test="avatar != null">
-                    #{avatar}, 				</if>
-												<if test="lastTime != null">
-                    #{lastTime}, 				</if>
-												<if test="registerTime != null">
-                    #{registerTime}, 				</if>
-												<if test="lastIp != null">
-                    #{lastIp}, 				</if>
-												<if test="isabled != null">
-                    #{isabled}, 				</if>
-												<if test="identity != null">
-                    #{identity}, 				</if>
-												<if test="qq != null">
-                    #{qq}, 				</if>
-												<if test="currentStatus != null">
-                    #{currentStatus}, 				</if>
-												<if test="wechat != null">
-                    #{wechat}				</if>
-					        )
-    </insert>
+	<insert id="saveSelective" parameterType="com.example.demo.entity.TeacherEntity" useGeneratedKeys="true" keyProperty="id">
+		insert into teacher
+		(
+		<if test="nickname != null">
+			`nickname`,                 </if>
+		<if test="name != null">
+			`name`,                 </if>
+		<if test="password != null">
+			`password`,                 </if>
+		<if test="sex != null">
+			`sex`,                 </if>
+		<if test="birthday != null">
+			`birthday`,                 </if>
+		<if test="education != null">
+			`education`,                 </if>
+		<if test="major != null">
+			`major`,                 </if>
+		<if test="university != null">
+			`university`,                 </if>
+		<if test="phone != null">
+			`phone`,                 </if>
+		<if test="email != null">
+			`email`,                 </if>
+		<if test="description != null">
+			`description`,                 </if>
+		<if test="address != null">
+			`address`,                 </if>
+		<if test="teachingTime != null">
+			`teaching_time`,                 </if>
+		<if test="teachingArea != null">
+			`teaching_area`,                 </if>
+		<if test="teachingSubject != null">
+			`teaching_subject`,                 </if>
+		<if test="foreignLevel != null">
+			`foreign_level`,                 </if>
+		<if test="experience != null">
+			`experience`,                 </if>
+		<if test="avatar != null">
+			`avatar`,                 </if>
+		<if test="lastTime != null">
+			`last_time`,                 </if>
+		<if test="registerTime != null">
+			`register_time`,                 </if>
+		<if test="lastIp != null">
+			`last_ip`,                 </if>
+		<if test="isabled != null">
+			`isabled`,                 </if>
+		<if test="identity != null">
+			`identity`,                 </if>
+		<if test="qq != null">
+			`qq`,                 </if>
+		<if test="currentStatus != null">
+			`current_status`,                 </if>
+		<if test="wechat != null">
+			`wechat`,                 </if>
+		<if test="loginTimes != null">
+			`login_times`,                 </if>
+		<if test="isverify != null">
+			`isverify`                </if>
+		)
+		values
+		(
+		<if test="nickname != null">
+			#{nickname}, 				</if>
+		<if test="name != null">
+			#{name}, 				</if>
+		<if test="password != null">
+			#{password}, 				</if>
+		<if test="sex != null">
+			#{sex}, 				</if>
+		<if test="birthday != null">
+			#{birthday}, 				</if>
+		<if test="education != null">
+			#{education}, 				</if>
+		<if test="major != null">
+			#{major}, 				</if>
+		<if test="university != null">
+			#{university}, 				</if>
+		<if test="phone != null">
+			#{phone}, 				</if>
+		<if test="email != null">
+			#{email}, 				</if>
+		<if test="description != null">
+			#{description}, 				</if>
+		<if test="address != null">
+			#{address}, 				</if>
+		<if test="teachingTime != null">
+			#{teachingTime}, 				</if>
+		<if test="teachingArea != null">
+			#{teachingArea}, 				</if>
+		<if test="teachingSubject != null">
+			#{teachingSubject}, 				</if>
+		<if test="foreignLevel != null">
+			#{foreignLevel}, 				</if>
+		<if test="experience != null">
+			#{experience}, 				</if>
+		<if test="avatar != null">
+			#{avatar}, 				</if>
+		<if test="lastTime != null">
+			#{lastTime}, 				</if>
+		<if test="registerTime != null">
+			#{registerTime}, 				</if>
+		<if test="lastIp != null">
+			#{lastIp}, 				</if>
+		<if test="isabled != null">
+			#{isabled}, 				</if>
+		<if test="identity != null">
+			#{identity}, 				</if>
+		<if test="qq != null">
+			#{qq}, 				</if>
+		<if test="currentStatus != null">
+			#{currentStatus}, 				</if>
+		<if test="wechat != null">
+			#{wechat}, 				</if>
+		<if test="loginTimes != null">
+			#{loginTimes}, 				</if>
+		<if test="isverify != null">
+			#{isverify}				</if>
+		)
+	</insert>
 
 
 
 	<update id="updateSelective" parameterType="com.example.demo.entity.TeacherEntity">
-		update teacher 
+		update teacher
 		<set>
 			<if test="nickname != null">`nickname` = #{nickname}, </if>
 			<if test="name != null">`name` = #{name}, </if>
@@ -275,24 +288,26 @@
 			<if test="identity != null">`identity` = #{identity}, </if>
 			<if test="qq != null">`qq` = #{qq}, </if>
 			<if test="currentStatus != null">`current_status` = #{currentStatus}, </if>
-			<if test="wechat != null">`wechat` = #{wechat}</if>
+			<if test="wechat != null">`wechat` = #{wechat}, </if>
+			<if test="loginTimes != null">`login_times` = #{loginTimes}, </if>
+			<if test="isverify != null">`isverify` = #{isverify}</if>
 		</set>
 		where id = #{id}
 	</update>
 
-    <update id="update" parameterType="com.example.demo.entity.TeacherEntity">
-        update teacher
-        <set>
-														                    `nickname` = #{nickname}, 											                    `name` = #{name}, 											                    `password` = #{password}, 											                    `sex` = #{sex}, 											                    `birthday` = #{birthday}, 											                    `education` = #{education}, 											                    `major` = #{major}, 											                    `university` = #{university}, 											                    `phone` = #{phone}, 											                    `email` = #{email}, 											                    `description` = #{description}, 											                    `address` = #{address}, 											                    `teaching_time` = #{teachingTime}, 											                    `teaching_area` = #{teachingArea}, 											                    `teaching_subject` = #{teachingSubject}, 											                    `foreign_level` = #{foreignLevel}, 											                    `experience` = #{experience}, 											                    `avatar` = #{avatar}, 											                    `last_time` = #{lastTime}, 											                    `register_time` = #{registerTime}, 											                    `last_ip` = #{lastIp}, 											                    `isabled` = #{isabled}, 											                    `identity` = #{identity}, 											                    `qq` = #{qq}, 											                    `current_status` = #{currentStatus}, 											                    `wechat` = #{wechat}							        </set>
-        where id = #{id}
-    </update>
-	
+	<update id="update" parameterType="com.example.demo.entity.TeacherEntity">
+		update teacher
+		<set>
+			`nickname` = #{nickname}, 											                    `name` = #{name}, 											                    `password` = #{password}, 											                    `sex` = #{sex}, 											                    `birthday` = #{birthday}, 											                    `education` = #{education}, 											                    `major` = #{major}, 											                    `university` = #{university}, 											                    `phone` = #{phone}, 											                    `email` = #{email}, 											                    `description` = #{description}, 											                    `address` = #{address}, 											                    `teaching_time` = #{teachingTime}, 											                    `teaching_area` = #{teachingArea}, 											                    `teaching_subject` = #{teachingSubject}, 											                    `foreign_level` = #{foreignLevel}, 											                    `experience` = #{experience}, 											                    `avatar` = #{avatar}, 											                    `last_time` = #{lastTime}, 											                    `register_time` = #{registerTime}, 											                    `last_ip` = #{lastIp}, 											                    `isabled` = #{isabled}, 											                    `identity` = #{identity}, 											                    `qq` = #{qq}, 											                    `current_status` = #{currentStatus}, 											                    `wechat` = #{wechat}, 											                    `login_times` = #{loginTimes}, 											                    `isverify` = #{isverify}							        </set>
+		where id = #{id}
+	</update>
+
 	<delete id="delete">
 		delete from teacher where id = #{value}
 	</delete>
-	
+
 	<delete id="deleteBatch">
-		delete from teacher where id in 
+		delete from teacher where id in
 		<foreach item="id" collection="array" open="(" separator="," close=")">
 			#{id}
 		</foreach>

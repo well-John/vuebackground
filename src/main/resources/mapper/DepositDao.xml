@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.demo.dao.DepositDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.example.demo.entity.DepositEntity" id="depositMap">
+        <result property="id" column="id"/>
+        <result property="chargeDate" column="charge_date"/>
+        <result property="chargeMoney" column="charge_money"/>
+        <result property="status" column="status"/>
+        <result property="organiser" column="organiser"/>
+        <result property="organiserId" column="organiser_id"/>
+    </resultMap>
+
+    <select id="queryObject" resultMap="depositMap">
+        select * from deposit where id = #{value}
+    </select>
+
+	<select id="queryList" resultMap="depositMap">
+		select * from deposit
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+			<otherwise>
+                order by id desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
+ 	<select id="queryTotal" resultType="int">
+		select count(*) from deposit 
+	</select>
+	 
+	<insert id="save" parameterType="com.example.demo.entity.DepositEntity" useGeneratedKeys="true" keyProperty="id">
+		insert into deposit
+		(
+			`charge_date`, 
+			`charge_money`, 
+			`status`, 
+			`organiser`, 
+			`organiser_id`
+		)
+		values
+		(
+			#{chargeDate}, 
+			#{chargeMoney}, 
+			#{status}, 
+			#{organiser}, 
+			#{organiserId}
+		)
+	</insert>
+
+    <insert id="saveSelective" parameterType="com.example.demo.entity.DepositEntity" useGeneratedKeys="true" keyProperty="id">
+        insert into deposit
+        (
+														<if test="chargeDate != null">
+                `charge_date`,                 </if>
+												<if test="chargeMoney != null">
+                `charge_money`,                 </if>
+												<if test="status != null">
+                `status`,                 </if>
+												<if test="organiser != null">
+                `organiser`,                 </if>
+												<if test="organiserId != null">
+                `organiser_id`                </if>
+					        )
+        values
+        (
+														<if test="chargeDate != null">
+                    #{chargeDate}, 				</if>
+												<if test="chargeMoney != null">
+                    #{chargeMoney}, 				</if>
+												<if test="status != null">
+                    #{status}, 				</if>
+												<if test="organiser != null">
+                    #{organiser}, 				</if>
+												<if test="organiserId != null">
+                    #{organiserId}				</if>
+					        )
+    </insert>
+
+
+
+	<update id="updateSelective" parameterType="com.example.demo.entity.DepositEntity">
+		update deposit 
+		<set>
+			<if test="chargeDate != null">`charge_date` = #{chargeDate}, </if>
+			<if test="chargeMoney != null">`charge_money` = #{chargeMoney}, </if>
+			<if test="status != null">`status` = #{status}, </if>
+			<if test="organiser != null">`organiser` = #{organiser}, </if>
+			<if test="organiserId != null">`organiser_id` = #{organiserId}</if>
+		</set>
+		where id = #{id}
+	</update>
+
+    <update id="update" parameterType="com.example.demo.entity.DepositEntity">
+        update deposit
+        <set>
+														                    `charge_date` = #{chargeDate}, 											                    `charge_money` = #{chargeMoney}, 											                    `status` = #{status}, 											                    `organiser` = #{organiser}, 											                    `organiser_id` = #{organiserId}							        </set>
+        where id = #{id}
+    </update>
+	
+	<delete id="delete">
+		delete from deposit where id = #{value}
+	</delete>
+	
+	<delete id="deleteBatch">
+		delete from deposit where id in 
+		<foreach item="id" collection="array" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+
+</mapper>

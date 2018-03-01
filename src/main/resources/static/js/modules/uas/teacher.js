@@ -40,6 +40,7 @@ $(function () {
 			{ label: '状态', name: 'isabled', index: 'isabled', width: 80 ,formatter:showabled},
 			{ label: '职业', name: 'identity', index: 'identity', width: 80 ,formatter:showidentity},
 			{ label: '目前身份', name: 'currentStatus', index: 'current_status', width: 80 },
+            { label: '是否已验证身份', name: 'isverify', index: 'isverify', width: 80 ,formatter:showVerify}
         ],
 		viewrecords: true,
         height: 385,
@@ -232,14 +233,6 @@ function showabled(abled) {
         return "<span class='label label-success'>正常</span>";
 }
 
-function showidentity(identity) {
-    if (identity == 0)
-        return "在校大学生";
-    else if (identity == 1)
-        return "在职教师";
-    else if (identity == 2)
-        return "未知类型";
-}
 
 function showimg(img) {
 	if(img != null){
@@ -271,4 +264,16 @@ function initFileInput(ctrlName, uploadUrl) {
             actionZoom:''   //去除上传预览缩略图中的查看详情预览的缩略图标。
         }
  });
+}
+
+function showVerify(verify) {
+    if(verify == 0){
+        return "<span class='label label-danger'>未验证身份信息</span>";
+    }else if(verify == 1){
+        return "<span class='label label-warning'>未验证教师信息</span>";
+    }else if(verify == 2){
+        return "<span class='label label-success'>已验证</span>";
+    }else {
+        return  "<span class='label label-danger'>未知异常</span>";
+    }
 }

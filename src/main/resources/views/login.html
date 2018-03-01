@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>团贷后台统一认证中心</title>
+    <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+    <link rel="stylesheet" href="../../css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../css/font-awesome.min.css">
+    <link rel="stylesheet" href="../../css/AdminLTE.min.css">
+
+    <link rel="stylesheet" href="../../css/all-skins.min.css">
+    <link rel="stylesheet" href="../../css/main.css">
+
+</head>
+<body class="hold-transition login-page">
+<div class="login-box" id="rrapp" v-cloak>
+    <div class="login-logo">
+    </div>
+    <!-- /.login-logo -->
+    <div class="login-box-body">
+        <p class="login-box-msg">欢迎登录团贷网后台</p>
+        <div v-if="error" class="alert alert-danger alert-dismissible">
+            <h4 style="margin-bottom: 0px;"><i class="fa fa-exclamation-triangle"></i> {{errorMsg}}</h4>
+        </div>
+        <div class="form-group has-feedback">
+            <input type="text" class="form-control" v-model="username" @keydown="keydown" placeholder="账号">
+            <span class="glyphicon glyphicon-user form-control-feedback"></span>
+        </div>
+        <div class="form-group has-feedback">
+            <input type="password" class="form-control" v-model="password" @keydown="keydown" placeholder="密码">
+            <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+        </div>
+
+        <div class="row">
+            <div class="col-xs-16">
+                <div class="checkbox icheck">
+                </div>
+            </div>
+            <!-- /.col -->
+            <div class="col-xs-16">
+                <button type="button" class="btn btn-primary btn-block btn-flat" @click="login">登录</button>
+            </div>
+
+
+        </div>
+
+    </div>
+    <!-- /.login-box-body -->
+    <div id="qrcode" style="width:100px; height:125px; margin-top:15px;"></div>
+</div>
+
+<!-- /.login-box -->
+<script src="../../libs/jquery.min.js"></script>
+<script src="../../plugins/jqgrid/jquery.jqGrid.min.js"></script>
+<script src="../../libs/vue.min.js"></script>
+<script src="../../libs/app.js"></script>
+<script src="../../libs/bootstrap.min.js"></script>
+<script src="../../js/common.js"></script>
+
+
+<script type="text/javascript">
+
+    //获取请求参数中clientUrl的值
+
+    var clientUrl = getUrlParameter("clientUrl");
+
+    var vm = new Vue({
+        el: '#rrapp',
+        data: {
+            username: '',
+            password: '',
+            error: false,
+            errorMsg: ''
+        },
+        methods: {
+            login: function () {
+                var data = "login=" + vm.username + "&password=" + vm.password;
+                console.log("data: " + data);
+                $.ajax({
+                    type: "POST",
+                    url: baseURL + "generator/admin/login",
+                    data: data,
+                    dataType: "json",
+                    success: function (r) {
+                        if (r.code == 0) {//登录成功
+                            window.location.href = "index.html";
+                        } else {
+                            vm.error = true;
+                            vm.errorMsg = r.msg;
+                        }
+                    }
+                });
+            },
+            keydown: function (e) {
+                var ev = document.all ? window.event : e;
+                if (ev.keyCode == 13) {
+                    vm.login();
+                }
+            }
+        }
+    });
+</script>
+</body>
+</html>

@@ -192,7 +192,20 @@ function showSex(sex){
         return "男";
     } else if (sex == 1) {
         return "女";
-    } else {
-        return "未知"
+    } else if(sex == 2){
+        return "无"
+    } else{
+        return "未知";
     }
+}
+
+function showidentity(identity) {
+    if (identity == 0)
+        return "在校大学生";
+    else if (identity == 1)
+        return "在职教师";
+    else if (identity == 2)
+        return "无";
+    else
+        return "未知类型";
 }
