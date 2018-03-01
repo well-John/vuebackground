@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.demo.dao.StudentDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.example.demo.entity.StudentEntity" id="studentMap">
+        <result property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="sex" column="sex"/>
+        <result property="password" column="password"/>
+        <result property="phone" column="phone"/>
+        <result property="email" column="email"/>
+        <result property="lastIp" column="last_ip"/>
+        <result property="lastTime" column="last_time"/>
+        <result property="regTime" column="reg_time"/>
+        <result property="balance" column="balance"/>
+        <result property="isabled" column="isabled"/>
+        <result property="loginTimes" column="login_times"/>
+    </resultMap>
+
+    <select id="queryObject" resultMap="studentMap">
+        select * from student where id = #{value}
+    </select>
+
+	<select id="queryList" resultMap="studentMap">
+		select * from student
+		<where>
+			<if test="studentName != null and studentName.trim() != ''">
+				and name = #{studentName}
+			</if>
+			<if test="email != null and email.trim() != ''">
+				and	 email = #{email}
+			</if>
+			<if test="startTime != null and startTime.trim() != ''" >
+				and last_time <![CDATA[ >= ]]> #{startTime}
+			</if>
+			<if test="endTime != null and endTime.trim() != ''">
+				and last_time <![CDATA[ <= ]]> #{endTime}
+			</if>
+		</where>
+
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+			<otherwise>
+                order by id desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
+ 	<select id="queryTotal" resultType="int">
+		select count(*) from student 
+	</select>
+	 
+	<insert id="save" parameterType="com.example.demo.entity.StudentEntity" useGeneratedKeys="true" keyProperty="id">
+		insert into student
+		(
+			`name`, 
+			`sex`, 
+			`password`, 
+			`phone`, 
+			`email`, 
+			`last_ip`, 
+			`last_time`, 
+			`reg_time`, 
+			`balance`, 
+			`isabled`, 
+			`login_times`
+		)
+		values
+		(
+			#{name}, 
+			#{sex}, 
+			#{password}, 
+			#{phone}, 
+			#{email}, 
+			#{lastIp}, 
+			#{lastTime}, 
+			#{regTime}, 
+			#{balance}, 
+			#{isabled}, 
+			#{loginTimes}
+		)
+	</insert>
+
+    <insert id="saveSelective" parameterType="com.example.demo.entity.StudentEntity" useGeneratedKeys="true" keyProperty="id">
+        insert into student
+        (
+														<if test="name != null">
+                `name`,                 </if>
+												<if test="sex != null">
+                `sex`,                 </if>
+												<if test="password != null">
+                `password`,                 </if>
+												<if test="phone != null">
+                `phone`,                 </if>
+												<if test="email != null">
+                `email`,                 </if>
+												<if test="lastIp != null">
+                `last_ip`,                 </if>
+												<if test="lastTime != null">
+                `last_time`,                 </if>
+												<if test="regTime != null">
+                `reg_time`,                 </if>
+												<if test="balance != null">
+                `balance`,                 </if>
+												<if test="isabled != null">
+                `isabled`,                 </if>
+												<if test="loginTimes != null">
+                `login_times`                </if>
+					        )
+        values
+        (
+														<if test="name != null">
+                    #{name}, 				</if>
+												<if test="sex != null">
+                    #{sex}, 				</if>
+												<if test="password != null">
+                    #{password}, 				</if>
+												<if test="phone != null">
+                    #{phone}, 				</if>
+												<if test="email != null">
+                    #{email}, 				</if>
+												<if test="lastIp != null">
+                    #{lastIp}, 				</if>
+												<if test="lastTime != null">
+                    #{lastTime}, 				</if>
+												<if test="regTime != null">
+                    #{regTime}, 				</if>
+												<if test="balance != null">
+                    #{balance}, 				</if>
+												<if test="isabled != null">
+                    #{isabled}, 				</if>
+												<if test="loginTimes != null">
+                    #{loginTimes}				</if>
+					        )
+    </insert>
+
+
+
+	<update id="updateSelective" parameterType="com.example.demo.entity.StudentEntity">
+		update student 
+		<set>
+			<if test="name != null">`name` = #{name}, </if>
+			<if test="sex != null">`sex` = #{sex}, </if>
+			<if test="password != null">`password` = #{password}, </if>
+			<if test="phone != null">`phone` = #{phone}, </if>
+			<if test="email != null">`email` = #{email}, </if>
+			<if test="lastIp != null">`last_ip` = #{lastIp}, </if>
+			<if test="lastTime != null">`last_time` = #{lastTime}, </if>
+			<if test="regTime != null">`reg_time` = #{regTime}, </if>
+			<if test="balance != null">`balance` = #{balance}, </if>
+			<if test="isabled != null">`isabled` = #{isabled}, </if>
+			<if test="loginTimes != null">`login_times` = #{loginTimes}</if>
+		</set>
+		where id = #{id}
+	</update>
+
+    <update id="update" parameterType="com.example.demo.entity.StudentEntity">
+        update student
+        <set>
+														                    `name` = #{name}, 											                    `sex` = #{sex}, 											                    `password` = #{password}, 											                    `phone` = #{phone}, 											                    `email` = #{email}, 											                    `last_ip` = #{lastIp}, 											                    `last_time` = #{lastTime}, 											                    `reg_time` = #{regTime}, 											                    `balance` = #{balance}, 											                    `isabled` = #{isabled}, 											                    `login_times` = #{loginTimes}							        </set>
+        where id = #{id}
+    </update>
+	
+	<delete id="delete">
+		delete from student where id = #{value}
+	</delete>
+	
+	<delete id="deleteBatch">
+		delete from student where id in 
+		<foreach item="id" collection="array" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+
+	<update id="forbidden">
+		update student set isabled = 1 where id = #{id}
+	</update>
+
+	<update id="recover">
+		update student set isabled = 2 where id = #{id}
+	</update>
+
+</mapper>

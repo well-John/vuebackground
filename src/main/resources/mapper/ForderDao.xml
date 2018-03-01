@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.demo.dao.ForderDao">
+
+	<!-- 可根据自己的需求，是否要使用 -->
+    <resultMap type="com.example.demo.entity.ForderEntity" id="forderMap">
+        <result property="id" column="id"/>
+        <result property="releaseDate" column="release_date"/>
+        <result property="subject" column="subject"/>
+        <result property="status" column="status"/>
+        <result property="appointmentId" column="appointment_id"/>
+        <result property="adminId" column="admin_id"/>
+        <result property="adminName" column="admin_name"/>
+        <result property="teacherId" column="teacher_id"/>
+        <result property="studentId" column="student_id"/>
+        <result property="teacherRequirementId" column="teacher_requirement_id"/>
+    </resultMap>
+
+    <select id="queryObject" resultMap="forderMap">
+        select * from forder where id = #{value}
+    </select>
+
+	<select id="queryList" resultMap="forderMap">
+		select * from forder
+        <choose>
+            <when test="sidx != null and sidx.trim() != ''">
+                order by ${sidx} ${order}
+            </when>
+			<otherwise>
+                order by id desc
+			</otherwise>
+        </choose>
+		<if test="offset != null and limit != null">
+			limit #{offset}, #{limit}
+		</if>
+	</select>
+	
+ 	<select id="queryTotal" resultType="int">
+		select count(*) from forder 
+	</select>
+	 
+	<insert id="save" parameterType="com.example.demo.entity.ForderEntity" useGeneratedKeys="true" keyProperty="id">
+		insert into forder
+		(
+			`release_date`, 
+			`subject`, 
+			`status`, 
+			`appointment_id`, 
+			`admin_id`, 
+			`admin_name`, 
+			`teacher_id`, 
+			`student_id`, 
+			`teacher_requirement_id`
+		)
+		values
+		(
+			#{releaseDate}, 
+			#{subject}, 
+			#{status}, 
+			#{appointmentId}, 
+			#{adminId}, 
+			#{adminName}, 
+			#{teacherId}, 
+			#{studentId}, 
+			#{teacherRequirementId}
+		)
+	</insert>
+
+    <insert id="saveSelective" parameterType="com.example.demo.entity.ForderEntity" useGeneratedKeys="true" keyProperty="id">
+        insert into forder
+        (
+														<if test="releaseDate != null">
+                `release_date`,                 </if>
+												<if test="subject != null">
+                `subject`,                 </if>
+												<if test="status != null">
+                `status`,                 </if>
+												<if test="appointmentId != null">
+                `appointment_id`,                 </if>
+												<if test="adminId != null">
+                `admin_id`,                 </if>
+												<if test="adminName != null">
+                `admin_name`,                 </if>
+												<if test="teacherId != null">
+                `teacher_id`,                 </if>
+												<if test="studentId != null">
+                `student_id`,                 </if>
+												<if test="teacherRequirementId != null">
+                `teacher_requirement_id`                </if>
+					        )
+        values
+        (
+														<if test="releaseDate != null">
+                    #{releaseDate}, 				</if>
+												<if test="subject != null">
+                    #{subject}, 				</if>
+												<if test="status != null">
+                    #{status}, 				</if>
+												<if test="appointmentId != null">
+                    #{appointmentId}, 				</if>
+												<if test="adminId != null">
+                    #{adminId}, 				</if>
+												<if test="adminName != null">
+                    #{adminName}, 				</if>
+												<if test="teacherId != null">
+                    #{teacherId}, 				</if>
+												<if test="studentId != null">
+                    #{studentId}, 				</if>
+												<if test="teacherRequirementId != null">
+                    #{teacherRequirementId}				</if>
+					        )
+    </insert>
+
+
+
+	<update id="updateSelective" parameterType="com.example.demo.entity.ForderEntity">
+		update forder 
+		<set>
+			<if test="releaseDate != null">`release_date` = #{releaseDate}, </if>
+			<if test="subject != null">`subject` = #{subject}, </if>
+			<if test="status != null">`status` = #{status}, </if>
+			<if test="appointmentId != null">`appointment_id` = #{appointmentId}, </if>
+			<if test="adminId != null">`admin_id` = #{adminId}, </if>
+			<if test="adminName != null">`admin_name` = #{adminName}, </if>
+			<if test="teacherId != null">`teacher_id` = #{teacherId}, </if>
+			<if test="studentId != null">`student_id` = #{studentId}, </if>
+			<if test="teacherRequirementId != null">`teacher_requirement_id` = #{teacherRequirementId}</if>
+		</set>
+		where id = #{id}
+	</update>
+
+    <update id="update" parameterType="com.example.demo.entity.ForderEntity">
+        update forder
+        <set>
+														                    `release_date` = #{releaseDate}, 											                    `subject` = #{subject}, 											                    `status` = #{status}, 											                    `appointment_id` = #{appointmentId}, 											                    `admin_id` = #{adminId}, 											                    `admin_name` = #{adminName}, 											                    `teacher_id` = #{teacherId}, 											                    `student_id` = #{studentId}, 											                    `teacher_requirement_id` = #{teacherRequirementId}							        </set>
+        where id = #{id}
+    </update>
+	
+	<delete id="delete">
+		delete from forder where id = #{value}
+	</delete>
+	
+	<delete id="deleteBatch">
+		delete from forder where id in 
+		<foreach item="id" collection="array" open="(" separator="," close=")">
+			#{id}
+		</foreach>
+	</delete>
+
+</mapper>

@@ -1,0 +1,28 @@
+@charset "UTF-8";
+/**
+*  公共样式
+*  author Linxp @2017-08-15 17:00
+*/
+.tui-margin-left-10 {
+    margin-left: 10px;
+}
+.tui-margin-left-5 {
+    margin-left: 5px;
+}
+
+.tui-margin-left-2 {
+    margin-left: 2px;
+}
+
+.tui-margin-top-5 {
+    margin-top: 5px;
+}
+
+.no-border {
+    border:none;
+}
+
+.no-margin-padding {
+    margin: 0;
+    padding: 0;
+}
