@@ -4,11 +4,11 @@ $(function () {
         datatype: "json",
         colModel: [			
 			{ label: 'id', name: 'id', index: 'id', width: 50, key: true },
-			{ label: '', name: 'login', index: 'login', width: 80 }, 			
-			{ label: '', name: 'password', index: 'password', width: 80 }, 			
-			{ label: '', name: 'lastTime', index: 'last_time', width: 80 ,formatter:getMyDateTime},
-			{ label: '', name: 'lastIp', index: 'last_ip', width: 80 }, 			
-			{ label: '', name: 'name', index: 'name', width: 80 }			
+			{ label: '登录名', name: 'login', index: 'login', width: 80 },
+			{ label: '密码', name: 'password', index: 'password', width: 80 },
+			{ label: '上次登录时间', name: 'lastTime', index: 'last_time', width: 80 ,formatter:getMyDateTime},
+			{ label: '上次登录ip', name: 'lastIp', index: 'last_ip', width: 80 },
+			{ label: '姓名', name: 'name', index: 'name', width: 80 }
         ],
 		viewrecords: true,
         height: 385,

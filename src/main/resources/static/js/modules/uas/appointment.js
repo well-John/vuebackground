@@ -132,10 +132,10 @@ function showOrganiser(organiser) {
 }
 function showStatus(status) {
     if (status == 0){
-        return "待接受";
+        return "<span class='label label-danger'>待接受</span>";
     } else if (status == 2){
-        return "已接受";
+        return "<span class='label label-success'>已接受</span>";
     } else{
-        return "未知状态";
+        return "<span class='label label-danger'>未知状态</span>";
     }
 }
