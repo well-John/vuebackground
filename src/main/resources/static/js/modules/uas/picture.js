@@ -147,7 +147,7 @@ function showPicType(type) {
 
 function showimg(img) {
     if (img != null) {
-        return '<img style="width: 80px;height: 60px" src="'+img+'" alt="' + img + '" data-action="zoom" />';
+        return '<img style="width: 80px" src="'+img+'" alt="' + img + '" data-action="zoom" />';
     }
     return "";
 }

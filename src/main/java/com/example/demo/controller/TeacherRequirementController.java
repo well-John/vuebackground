@@ -83,5 +83,13 @@ public class TeacherRequirementController {
 		
 		return R.ok();
 	}
-	
+
+	@RequestMapping("/checkRequire")
+	public  R checkRequire(Integer id,Integer status){
+		TeacherRequirementEntity requirement = new TeacherRequirementEntity();
+		requirement.setId(id);
+		requirement.setReleaseStatus(status);
+		teacherRequirementService.updateSelective(requirement);
+		return R.ok();
+	}
 }

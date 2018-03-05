@@ -6,7 +6,7 @@ $(function () {
 			{ label: 'id', name: 'id', index: 'id', width: 50, key: true },
 			{ label: '发布时间', name: 'releaseDate', index: 'release_date', width: 80 ,formatter:getMyDateTime},
 			{ label: '年级科目', name: 'subject', index: 'subject', width: 80 }, 			
-			{ label: '订单状态(1：成功 2：失败 )', name: 'status', index: 'status', width: 80,formatter:showStatus},
+			{ label: '订单状态', name: 'status', index: 'status', width: 80,formatter:showStatus},
 			{ label: '预约记录id', name: 'appointmentId', index: 'appointment_id', width: 80 }, 			
 			{ label: '处理人id', name: 'adminId', index: 'admin_id', width: 80 }, 			
 			{ label: '管理员', name: 'adminName', index: 'admin_name', width: 80 },
@@ -125,8 +125,14 @@ var vm = new Vue({
 });
 function showStatus(status) {
 	if (status == 1) {
+        return "<span class='label label-warning'>待支付</span>";
+	} else if(status == 2){
         return "<span class='label label-success'>成功</span>";
-	} else {
-        return "<span class='label label-danger'>失败</span>";
+	} else if(status == 3){
+		return "<span class='label label-danger'>失败</span>";
+	} else if(status == 4){
+		return "<span class='label label-default'>已关闭</span>";
+	}else {
+		return "<span class='label label-danger'>未知状态</span>";
 	}
 }

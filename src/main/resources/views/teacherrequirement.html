@@ -23,9 +23,10 @@
 <div id="rrapp" v-cloak>
     <div v-show="showList">
         <div class="grid-btn">
-            <a class="btn btn-primary" @click="add"><i class="fa fa-plus"></i>&nbsp;新增</a>
+            <!--<a class="btn btn-primary" @click="add"><i class="fa fa-plus"></i>&nbsp;新增</a>-->
             <a class="btn btn-primary" @click="update"><i class="fa fa-pencil-square-o"></i>&nbsp;修改</a>
             <a class="btn btn-primary" @click="del"><i class="fa fa-trash-o"></i>&nbsp;删除</a>
+            <a class="btn btn-primary" @click="check"><i class="fa fa-trash-home"></i>&nbsp;审核</a>
         </div>
         <table id="jqGrid"></table>
         <div id="jqGridPager"></div>
@@ -135,7 +136,8 @@
                 <div class="col-sm-2 control-label">性别要求(0:男，1：女,2:无要求)</div>
                 <div class="col-sm-10">
                     <label class="radio-inline">
-                        <input type="radio" v-model="teacherRequirement.requireSex" name="sex" value="0" checked="checked"/> 男
+                        <input type="radio" v-model="teacherRequirement.requireSex" name="sex" value="0"
+                               checked="checked"/> 男
                     </label>
                     <label class="radio-inline">
                         <input type="radio" v-model="teacherRequirement.requireSex" name="sex" value="1"/> 女
@@ -198,6 +200,21 @@
                 &nbsp;&nbsp;<input type="button" class="btn btn-warning" @click="reload" value="返回"/>
             </div>
         </form>
+    </div>
+
+    <div class="modal fade" id="myModal">
+        <div class="modal-dialog">
+            <form class="form-horizontal">
+                <div class="modal-content" style="width: 350px;">
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-success" onclick="checkRequire(1);"> 审核通过</button>
+                        <button type="button" class="btn btn-danger" onclick="checkRequire(2);"> 审核不过</button>
+                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                    </div>
+                </div>
+            </form>
+            <!-- /.modal-content -->
+        </div>
     </div>
 </div>
 
