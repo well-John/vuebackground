@@ -2,7 +2,9 @@ package com.example.demo.controller;
 
 
 import com.example.demo.entity.PictureEntity;
+import com.example.demo.entity.TeacherEntity;
 import com.example.demo.service.PictureService;
+import com.example.demo.service.TeacherService;
 import com.example.demo.utils.PageUtils;
 import com.example.demo.utils.Query;
 import com.example.demo.utils.R;
@@ -27,6 +29,9 @@ import java.util.Map;
 public class PictureController {
 	@Autowired
 	private PictureService pictureService;
+
+	@Autowired
+	private TeacherService teacherService;
 	
 	/**
 	 * 列表
@@ -87,10 +92,15 @@ public class PictureController {
 
 	@RequestMapping("/checkImg")
 	public R checkImg(Integer status,Integer id){
-		PictureEntity pictureEntity = new PictureEntity();
-		pictureEntity.setId(id);
+		PictureEntity pictureEntity = pictureService.queryObject(id);
 		pictureEntity.setStatus(status);
 		pictureService.updateSelective(pictureEntity);
+		if(pictureEntity.getType() == 0){
+			TeacherEntity teacher = new TeacherEntity();
+			teacher.setId(pictureEntity.getTeacherId());
+			teacher.setAvatar(pictureEntity.getPath());
+			teacherService.updateSelective(teacher);
+		}
 		return R.ok();
 	}
 

@@ -142,6 +142,22 @@ function showStatus(status) {
 function showPicType(type) {
     if (type == 0) {
         return "头像";
+    }else if(type == 1){
+        return "身份证";
+    }else if(type == 2){
+        return "学生证";
+    }else if(type == 3){
+        return "毕业证";
+    }else if(type == 4){
+        return "教师资格证";
+    }else if(type == 5){
+        return "工作证";
+    }else if(type == 6){
+        return "等级证书";
+    }else if(type == 7){
+        return "其他证书";
+    }else{
+        return "未知类型";
     }
 }
 
@@ -167,7 +183,7 @@ function checkImg(status) {
         type:'post',
         dataType:"json",
         async:false,
-        data:{'status':status,'id':id},
+        data:{'id':id,'status':status},
         success:function(data){
             if(data.code == 0){
                 $("#myModal").modal('hide');
