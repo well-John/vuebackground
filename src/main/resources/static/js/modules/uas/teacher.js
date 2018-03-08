@@ -27,28 +27,29 @@ $(function () {
 			{ label: '性别', name: 'sex', index: 'sex', width: 40 ,formatter:showSex},
 			{ label: '出生年月', name: 'birthday', index: 'birthday', width: 80 }, 			
 			{ label: '最高学历', name: 'education', index: 'education', width: 80 }, 			
-			{ label: '所学专业', name: 'major', index: 'major', width: 80 }, 			
-			{ label: '就读大学', name: 'university', index: 'university', width: 80 }, 			
+			{ label: '所学专业', name: 'major', index: 'major', width: 120 },
+			{ label: '就读大学', name: 'university', index: 'university', width: 120 },
 			{ label: '联系电话', name: 'phone', index: 'phone', width: 80 }, 			
-			{ label: '电子邮箱', name: 'email', index: 'email', width: 80 },
-			{ label: '辅导经验', name: 'teachingTime', index: 'teaching_time', width: 80 },
-			{ label: '家教经历', name: 'experience', index: 'experience', width: 80 }, 			
+			{ label: '电子邮箱', name: 'email', index: 'email', width: 150 },
+			{ label: '辅导经验', name: 'teachingTime', index: 'teaching_time', width: 120 },
+			{ label: '家教经历', name: 'experience', index: 'experience', width: 120 },
 			{ label: '头像', name: 'avatar', index: 'avatar', width: 80,sortable: false, editable: false ,formatter: showimg},
-			{ label: '上次登录时间', name: 'lastTime', index: 'last_time', width: 80 ,formatter:getMyDate},
-			{ label: '注册时间', name: 'registerTime', index: 'register_time', width: 80 ,formatter:getMyDate },
-			{ label: '上次登录ip', name: 'lastIp', index: 'last_ip', width: 80 }, 			
+			{ label: '上次登录时间', name: 'lastTime', index: 'last_time', width: 140 ,formatter:getMyDateTime},
+			{ label: '注册时间', name: 'registerTime', index: 'register_time', width: 140 ,formatter:getMyDateTime },
+			{ label: '上次登录ip', name: 'lastIp', index: 'last_ip', width: 120 },
 			{ label: '状态', name: 'isabled', index: 'isabled', width: 80 ,formatter:showabled},
-			{ label: '职业', name: 'identity', index: 'identity', width: 80 ,formatter:showidentity},
-			{ label: '目前身份', name: 'currentStatus', index: 'current_status', width: 80 },
-            { label: '是否已验证身份', name: 'isverify', index: 'isverify', width: 80 ,formatter:showVerify}
+			{ label: '职业', name: 'identity', index: 'identity', width: 120 ,formatter:showidentity},
+			{ label: '目前身份', name: 'currentStatus', index: 'current_status', width: 120 },
+            { label: '是否已验证身份', name: 'isverify', index: 'isverify', width: 120 ,formatter:showVerify}
         ],
 		viewrecords: true,
-        height: 385,
+        height: 475,
         rowNum: 10,
 		rowList : [10,30,50],
         rownumbers: true, 
         rownumWidth: 25, 
-        autowidth:true,
+        autowidth: true,
+        shrinkToFit: false,
         multiselect: true,
         pager: "#jqGridPager",
         jsonReader : {
@@ -64,7 +65,7 @@ $(function () {
         },
         gridComplete:function(){
         	//隐藏grid底部滚动条
-        	$("#jqGrid").closest(".ui-jqgrid-bdiv").css({ "overflow-x" : "hidden" }); 
+            $("#jqGrid").closest(".ui-jqgrid-bdiv").css({"overflow-x": "scroll"});
         }
     });
 });
