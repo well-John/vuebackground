@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50720
 File Encoding         : 65001
 
-Date: 2018-03-09 18:13:07
+Date: 2018-03-17 16:09:54
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -48,7 +48,7 @@ CREATE TABLE `appointment` (
   `teacher_name` varchar(10) DEFAULT NULL,
   `teacher_requirement_id` int(20) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of appointment
@@ -182,7 +182,7 @@ CREATE TABLE `picture` (
 -- Records of picture
 -- ----------------------------
 INSERT INTO `picture` VALUES ('1', '1', '0', 'tx_0.jpg', '2018-02-22 00:00:00', '0');
-INSERT INTO `picture` VALUES ('3', '1', '0', 'tx_0.jpg', '2018-02-22 16:51:45', '0');
+INSERT INTO `picture` VALUES ('3', '1', '0', 'tx_0.jpg', '2018-02-22 16:51:45', '1');
 INSERT INTO `picture` VALUES ('4', '7', '0', 'Koala.jpg', '2018-03-01 11:14:32', '1');
 INSERT INTO `picture` VALUES ('5', '6', '0', '45_avatar_max.jpg', '2018-03-05 10:21:01', '1');
 INSERT INTO `picture` VALUES ('6', '1', '0', '45_avatar_max.jpg', '2018-03-05 16:09:50', '1');
@@ -249,14 +249,16 @@ CREATE TABLE `teacher` (
   `login_times` int(30) DEFAULT NULL,
   `isverify` int(1) DEFAULT '0' COMMENT '(是否已验证身份，0：未验证身份信息，1：未验证教师信息，2：已验证)',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of teacher
 -- ----------------------------
-INSERT INTO `teacher` VALUES ('1', 'john', '李一', '123', '1', '1997-09-10', '本科在读', '电子信息系统', '暨南大学', '23', '2357556894@qq.com', '性格开朗', '11', '1', '奉贤(四团/平安/邵厂),奉贤(奉城/塘外/洪庙/头桥)', '', '初一初二科学,初三数学', '英语四级', '执行阳光家教网薪水标准', '1', '45_avatar_max.jpg', '2018-03-08 10:13:39', '2018-03-13 14:31:49', '0:0:0:0:0:0:0:1', '2', '1', '123', '在校大一学生', '123', '15', '0');
+INSERT INTO `teacher` VALUES ('1', 'john', '李一', '123', '1', '1997-09-10', '本科在读', '电子信息系统', '广东财经大学', '23', '2357556894@qq.com', '性格开朗', '11', '1', '奉贤(四团/平安/邵厂),奉贤(奉城/塘外/洪庙/头桥)', '', '初一初二科学,初三数学', '英语四级', '执行阳光家教网薪水标准', '1', 'tx_0.jpg', '2018-03-08 10:13:39', '2018-03-13 14:31:49', '0:0:0:0:0:0:0:1', '2', '1', '123', '在校大一学生', '123', '15', '2');
 INSERT INTO `teacher` VALUES ('6', '1', '1', '1', '0', '1937-02', '大专在读', '1', '广东金融学院', '1', '23575156894@qq.com', '11', '1', '16', '海珠 ', null, '幼小衔接 ', null, null, '11', '45_avatar_max.jpg', '2018-02-05 00:00:00', '2018-02-11 00:00:00', null, '2', '0', '1', '在校大一学生', '1', null, '0');
 INSERT INTO `teacher` VALUES ('7', '1', '11', '1', '0', '1955-11', '大专毕业', '11', '广东金融学院', '1', '23575562894@qq.com', '1', '1', '0', '白云 ', null, '学前教育 ', null, null, '1', 'Koala.jpg', '2018-02-11 00:00:00', '2018-02-11 00:00:00', null, '1', '0', '1', '在校大三学生', '1', null, '0');
+INSERT INTO `teacher` VALUES ('8', 'welljohn1', '谢友根1', '123', '1', '1956-01', '本科在读', '软件工程', '广东财经大学', '123', '2357556894@qq.com', '自学能力强', '1', '0', '海珠 荔湾 ', null, '数学,语文', null, null, '无家教经历', 'tx_0.jpg', '2017-11-30 00:00:00', '2017-11-25 00:00:00', null, '2', '0', '12', '本科在读', '11', null, '0');
+INSERT INTO `teacher` VALUES ('9', 'welljohn1', '谢友根1', '123', '1', '1956-01', '本科在读', '软件工程', '广东财经大学', '123', '2357556894@qq.com', '自学能力强', '1', '0', '海珠 荔湾 ', null, '数学,语文', null, null, '无家教经历', 'tx_0.jpg', '2017-11-30 00:00:00', '2017-11-25 00:00:00', null, '2', '0', '12', '本科在读', '11', null, '0');
 
 -- ----------------------------
 -- Table structure for teacher_desire
