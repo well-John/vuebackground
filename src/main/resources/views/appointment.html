@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="../../css/font-awesome.min.css">
     <link rel="stylesheet" href="../../plugins/jqgrid/ui.jqgrid-bootstrap.css">
     <link rel="stylesheet" href="../../plugins/ztree/css/metroStyle/metroStyle.css">
+    <link rel="stylesheet" href="../../plugins/datepicker/bootstrap-datetimepicker.min.css">
     <link rel="stylesheet" href="../../css/main.css">
     <script src="../../libs/jquery.min.js"></script>
     <script src="../../plugins/layer/layer.js"></script>
@@ -18,14 +19,26 @@
     <script src="../../plugins/jqgrid/jquery.jqGrid.min.js"></script>
     <script src="../../plugins/ztree/jquery.ztree.all.min.js"></script>
     <script src="../../js/common.js"></script>
+    <script src="../../plugins/datepicker/bootstrap-datetimepicker.min.js"></script>
+    <script src="../../plugins/datepicker/bootstrap-datetimepicker.zh-CN.js"></script>
 </head>
 <body>
 <div id="rrapp" v-cloak>
     <div v-show="showList">
         <div class="grid-btn">
+            <div class="for-group col-md-1" style="margin-top: 10px;"><label for="starTtime"
+                                                                             class="form-label ">预约时间:</label></div>
+            <div class="form-group col-md-2" style="left: -10px;">
+                <input name="start" type='text' id='startTime' placeholder="请输入起始日期" class="form-control"/>
+            </div>
+
+            <div class="form-group col-md-2">
+                <input type='text' id='endTime' placeholder="请输入结束日期" class="form-control"/>
+            </div>
             <a class="btn btn-primary" @click="add"><i class="fa fa-plus"></i>&nbsp;新增</a>
             <a class="btn btn-primary" @click="update"><i class="fa fa-pencil-square-o"></i>&nbsp;修改</a>
             <a class="btn btn-primary" @click="del"><i class="fa fa-trash-o"></i>&nbsp;删除</a>
+            <a class="btn btn-default" @click="query">查询</a>
         </div>
         <table id="jqGrid"></table>
         <div id="jqGridPager"></div>

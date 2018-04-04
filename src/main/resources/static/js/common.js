@@ -209,3 +209,28 @@ function showidentity(identity) {
     else
         return "未知类型";
 }
+//初始化日期插件
+function initDatePicker() {
+
+    $('#startTime').datetimepicker({
+        format: 'yyyy-mm-dd hh:ii:ss',
+        language: 'zh-CN',
+        pickDate: true,
+        pickTime: true,
+        inputMask: true,
+        pickerPosition: "bottom-left",
+        autoclose: true,
+        defaultValue:new Date()
+    });
+
+    $('#endTime').datetimepicker({
+        format: 'yyyy-mm-dd hh:ii:ss',
+        language: 'zh-CN',
+        pickDate: true,
+        pickTime: true,
+        inputMask: true,
+        pickerPosition: "bottom-left",
+        autoclose: true,
+        defaultValue:new Date()
+    });
+}

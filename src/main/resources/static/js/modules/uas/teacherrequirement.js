@@ -1,4 +1,5 @@
 $(function () {
+    initDatePicker();
     $("#jqGrid").jqGrid({
         url: baseURL + 'generator/teacherrequirement/list',
         datatype: "json",
@@ -157,7 +158,11 @@ var vm = new Vue({
             vm.showList = true;
             var page = $("#jqGrid").jqGrid('getGridParam', 'page');
             $("#jqGrid").jqGrid('setGridParam', {
-                page: page
+                page: page,
+                postData: {
+                    startTime: $("#startTime").val(),
+                    endTime: $("#endTime").val()
+                }
             }).trigger("reloadGrid");
         }
     }
@@ -197,33 +202,33 @@ function showReleaseStatus(status) {
         return "<span class='label label-warning'>未审核</span>";
     } else if (status == 1) {
         return "<span class='label label-success'>发布中</span>";
-    } else if(status == 2){
+    } else if (status == 2) {
         return "<span class='label label-danger'>审核不通过</span>";
-    } else if(status == 3){
+    } else if (status == 3) {
         return "<span class='label label-default'>已关闭</span>";
-    }else {
+    } else {
         return "<span class='label label-danger'>未知状态</span>";
     }
 }
 
 function checkRequire(status) {
     var id = getSelectedRow();
-    var rowData = $("#jqGrid").jqGrid('getRowData',id);
-    if(rowData.releaseStatus.indexOf("未审核") == -1){
+    var rowData = $("#jqGrid").jqGrid('getRowData', id);
+    if (rowData.releaseStatus.indexOf("未审核") == -1) {
         alert("已经审核过了,不能重复审核！！！");
         return;
     }
     $.ajax({
-        url:'generator/teacherrequirement/checkRequire',
-        type:'post',
-        dataType:"json",
-        async:false,
-        data:{'status':status,'id':id},
-        success:function(data){
-            if(data.code == 0){
+        url: 'generator/teacherrequirement/checkRequire',
+        type: 'post',
+        dataType: "json",
+        async: false,
+        data: {'status': status, 'id': id},
+        success: function (data) {
+            if (data.code == 0) {
                 $("#myModal").modal('hide');
                 vm.reload();
-            }else{
+            } else {
                 alert(data.msg);
             }
         }

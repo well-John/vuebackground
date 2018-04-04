@@ -18,6 +18,14 @@
 
 	<select id="queryList" resultMap="commentMap">
 		select * from comment
+		<where>
+			<if test="startTime != null and startTime.trim() != ''">
+				and comment_time <![CDATA[ >= ]]> #{startTime}
+			</if>
+			<if test="endTime != null and endTime.trim() != ''">
+				and comment_time <![CDATA[ <= ]]> #{endTime}
+			</if>
+		</where>
         <choose>
             <when test="sidx != null and sidx.trim() != ''">
                 order by ${sidx} ${order}
@@ -32,7 +40,15 @@
 	</select>
 	
  	<select id="queryTotal" resultType="int">
-		select count(*) from comment 
+		select count(*) from comment
+		<where>
+			<if test="startTime != null and startTime.trim() != ''">
+				and comment_time <![CDATA[ >= ]]> #{startTime}
+			</if>
+			<if test="endTime != null and endTime.trim() != ''">
+				and comment_time <![CDATA[ <= ]]> #{endTime}
+			</if>
+		</where>
 	</select>
 	 
 	<insert id="save" parameterType="com.example.demo.entity.CommentEntity">

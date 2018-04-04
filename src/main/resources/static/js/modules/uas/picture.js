@@ -1,4 +1,6 @@
 $(function () {
+    initDatePicker();
+
     $("#jqGrid").jqGrid({
         url: baseURL + 'generator/picture/list',
         datatype: "json",
@@ -43,7 +45,9 @@ var vm = new Vue({
         showList: true,
         title: null,
         picture: {},
-        q: {path: null}
+        q: {
+            path: null
+        }
     },
     methods: {
         query: function () {
@@ -69,9 +73,9 @@ var vm = new Vue({
             if (id == null) {
                 return;
             }
-            var rowData = $("#jqGrid").jqGrid('getRowData',id);
+            var rowData = $("#jqGrid").jqGrid('getRowData', id);
             $("#img").empty();
-            $("#img").append($(rowData.path).data("action","zoom"));
+            $("#img").append($(rowData.path).data("action", "zoom"));
             $("#myModal").modal("show");
         },
         saveOrUpdate: function (event) {
@@ -125,7 +129,11 @@ var vm = new Vue({
             vm.showList = true;
             var page = $("#jqGrid").jqGrid('getGridParam', 'page');
             $("#jqGrid").jqGrid('setGridParam', {
-                page: page
+                page: page,
+                postData: {
+                    startTime: $("#startTime").val(),
+                    endTime: $("#endTime").val()
+                }
             }).trigger("reloadGrid");
         }
     }
@@ -142,28 +150,28 @@ function showStatus(status) {
 function showPicType(type) {
     if (type == 0) {
         return "头像";
-    }else if(type == 1){
+    } else if (type == 1) {
         return "身份证";
-    }else if(type == 2){
+    } else if (type == 2) {
         return "学生证";
-    }else if(type == 3){
+    } else if (type == 3) {
         return "毕业证";
-    }else if(type == 4){
+    } else if (type == 4) {
         return "教师资格证";
-    }else if(type == 5){
+    } else if (type == 5) {
         return "工作证";
-    }else if(type == 6){
+    } else if (type == 6) {
         return "等级证书";
-    }else if(type == 7){
+    } else if (type == 7) {
         return "其他证书";
-    }else{
+    } else {
         return "未知类型";
     }
 }
 
 function showimg(img) {
     if (img != null) {
-        return '<img style="width: 80px" src="'+img+'" alt="' + img + '" data-action="zoom" />';
+        return '<img style="width: 80px" src="' + img + '" alt="' + img + '" data-action="zoom" />';
     }
     return "";
 }
@@ -173,22 +181,22 @@ function checkImg(status) {
     if (id == null) {
         return;
     }
-    var rowData = $("#jqGrid").jqGrid('getRowData',id);
-    if(rowData.status.indexOf("已审核") != -1){
+    var rowData = $("#jqGrid").jqGrid('getRowData', id);
+    if (rowData.status.indexOf("已审核") != -1) {
         alert("图片已经审核过了！！！");
         return;
     }
     $.ajax({
-        url:'generator/picture/checkImg',
-        type:'post',
-        dataType:"json",
-        async:false,
-        data:{'id':id,'status':status},
-        success:function(data){
-            if(data.code == 0){
+        url: 'generator/picture/checkImg',
+        type: 'post',
+        dataType: "json",
+        async: false,
+        data: {'id': id, 'status': status},
+        success: function (data) {
+            if (data.code == 0) {
                 $("#myModal").modal('hide');
                 vm.reload();
-            }else{
+            } else {
                 alert(data.msg);
             }
         }

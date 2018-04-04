@@ -23,6 +23,14 @@
 
 	<select id="queryList" resultMap="forderMap">
 		select * from forder
+		<where>
+			<if test="startTime != null and startTime.trim() != ''">
+				and release_date <![CDATA[ >= ]]> #{startTime}
+			</if>
+			<if test="endTime != null and endTime.trim() != ''">
+				and release_date <![CDATA[ <= ]]> #{endTime}
+			</if>
+		</where>
         <choose>
             <when test="sidx != null and sidx.trim() != ''">
                 order by ${sidx} ${order}
@@ -37,7 +45,15 @@
 	</select>
 	
  	<select id="queryTotal" resultType="int">
-		select count(*) from forder 
+		select count(*) from forder
+		<where>
+			<if test="startTime != null and startTime.trim() != ''">
+				and release_date <![CDATA[ >= ]]> #{startTime}
+			</if>
+			<if test="endTime != null and endTime.trim() != ''">
+				and release_date <![CDATA[ <= ]]> #{endTime}
+			</if>
+		</where>
 	</select>
 	 
 	<insert id="save" parameterType="com.example.demo.entity.ForderEntity" useGeneratedKeys="true" keyProperty="id">

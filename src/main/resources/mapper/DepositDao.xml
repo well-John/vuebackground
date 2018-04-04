@@ -19,6 +19,14 @@
 
 	<select id="queryList" resultMap="depositMap">
 		select * from deposit
+		<where>
+			<if test="startTime != null and startTime.trim() != ''">
+				and charge_date <![CDATA[ >= ]]> #{startTime}
+			</if>
+			<if test="endTime != null and endTime.trim() != ''">
+				and charge_date <![CDATA[ <= ]]> #{endTime}
+			</if>
+		</where>
         <choose>
             <when test="sidx != null and sidx.trim() != ''">
                 order by ${sidx} ${order}
@@ -33,7 +41,15 @@
 	</select>
 	
  	<select id="queryTotal" resultType="int">
-		select count(*) from deposit 
+		select count(*) from deposit
+		<where>
+			<if test="startTime != null and startTime.trim() != ''">
+				and charge_date <![CDATA[ >= ]]> #{startTime}
+			</if>
+			<if test="endTime != null and endTime.trim() != ''">
+				and charge_date <![CDATA[ <= ]]> #{endTime}
+			</if>
+		</where>
 	</select>
 	 
 	<insert id="save" parameterType="com.example.demo.entity.DepositEntity" useGeneratedKeys="true" keyProperty="id">
