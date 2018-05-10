@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="../../plugins/ztree/css/metroStyle/metroStyle.css">
     <link rel="stylesheet" href="../../css/main.css">
     <link rel="stylesheet" href="../../css/fileinput.min.css">
+    <link rel="stylesheet" href="../../plugins/datepicker/bootstrap-datetimepicker.min.css">
     <script src="../../libs/jquery.min.js"></script>
     <script src="../../plugins/layer/layer.js"></script>
     <script src="../../libs/bootstrap.min.js"></script>
@@ -21,19 +22,21 @@
     <script src="../../js/common.js"></script>
     <script src="../../libs/fileinput.min.js"></script>
     <script src="../../libs/zh.js"></script>
+    <script src="../../plugins/datepicker/bootstrap-datetimepicker.min.js"></script>
+    <script src="../../plugins/datepicker/bootstrap-datetimepicker.zh-CN.js"></script>
 </head>
 <body>
 <div id="rrapp" v-cloak>
     <div v-show="showList">
         <div class="grid-btn">
-            <div class="for-group col-md-1"><label for="starttime" class="form-label ">上次登陆时间</label></div>
+            <div class="for-group col-md-1"><label for="startTime" class="form-label ">上次登陆时间</label></div>
             <div class="form-group col-md-2">
-                <input name="start" type='date' id='starttime' placeholder="请输入起始日期" class="form-control"
+                <input name="start" type='text' id='startTime' placeholder="请输入起始日期" class="form-control"
                        v-model="q.startTime"/>
             </div>
 
             <div class="form-group col-md-2">
-                <input type='date' id='endtime' placeholder="请输入结束日期" class="form-control" v-model="q.endTime"/>
+                <input type='text' id='endTime' placeholder="请输入结束日期" class="form-control" v-model="q.endTime"/>
             </div>
 
             <div class="form-group col-md-1">

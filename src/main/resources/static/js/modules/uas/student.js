@@ -1,4 +1,5 @@
 $(function () {
+    initDatePicker();
     $("#jqGrid").jqGrid({
         url: baseURL + 'generator/student/list',
         datatype: "json",
@@ -49,7 +50,12 @@ var vm = new Vue({
         showList: true,
         title: null,
         student: {},
-        q: {}
+        q: {
+            startTime:null,
+            endTime:null,
+            studentName:null,
+            email:null
+        }
     },
     methods: {
         query: function () {
@@ -167,6 +173,8 @@ var vm = new Vue({
         reload: function (event) {
             vm.showList = true;
             var page = $("#jqGrid").jqGrid('getGridParam', 'page');
+            vm.q.startTime = $("#startTime").val();
+            vm.q.endTime = $("#endTime").val();
             console.log(vm.q);
             $("#jqGrid").jqGrid('setGridParam', {
                 page: page,
